@@ -16,6 +16,7 @@ public class Nollaa implements Komento {
     private Sovelluslogiikka sovellus;
     private JTextField tuloskentta;
     private JTextField syotekentta;
+    private int edellinen;
 
     public Nollaa(Sovelluslogiikka sovellus, JTextField tuloskentta, JTextField syotekentta) {
         this.sovellus = sovellus;
@@ -25,6 +26,7 @@ public class Nollaa implements Komento {
 
     @Override
     public void suorita() {
+        edellinen = Integer.parseInt(tuloskentta.getText());
         sovellus.nollaa();
         syotekentta.setText("");
         tuloskentta.setText("" + 0);
@@ -32,6 +34,8 @@ public class Nollaa implements Komento {
 
     @Override
     public void peru() {
-        System.out.println("undo pressed");
+        sovellus.nollaa();
+        sovellus.plus(edellinen);
+        tuloskentta.setText("" + sovellus.tulos());
     }
 }
